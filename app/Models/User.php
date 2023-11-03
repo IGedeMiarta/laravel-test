@@ -22,6 +22,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    
+    public function scopeActive($query)
+    {
+        return $query->whereNotNull('email_verified_at');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +46,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }
