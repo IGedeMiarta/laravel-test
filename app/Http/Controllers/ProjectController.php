@@ -11,13 +11,15 @@ class ProjectController extends Controller
     {
         $request->validate([
             // TASK: Write the validation rule so "logo" file would be MAX 1 megabyte
+            'logo' => 'max:1024', //1MB = 1024 KB
         ]);
 
         // TASK: change the below line so that $filename would contain only filename
         // The same filename as the original uploaded file
-        $filename = '???';
-        $request->file('logo')->storeAs('logos', $filename);
-
+        $file = $request->file('logo');
+        $filename = $file->getClientOriginalName();
+        $file->storeAs('logos', $filename);
+        
         Project::create([
             'name' => $request->name,
             'logo' => $filename,

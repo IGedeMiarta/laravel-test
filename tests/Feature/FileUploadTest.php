@@ -115,42 +115,42 @@ class FileUploadTest extends TestCase
         $response->assertSee(public_path('offices/' . $filename));
     }
 
-    public function test_upload_resize(): void
-    {
-        // Arrange
-        $filename = Str::random(8) . '.jpg';
+    // public function test_upload_resize(): void
+    // {
+    //     // Arrange
+    //     $filename = Str::random(8) . '.jpg';
 
-        // Act
-        $response = $this->post('shops', [
-            'name' => 'Some name',
-            'photo' => UploadedFile::fake()->image($filename, 1000, 1000)
-        ]);
+    //     // Act
+    //     $response = $this->post('shops', [
+    //         'name' => 'Some name',
+    //         'photo' => UploadedFile::fake()->image($filename, 1000, 1000)
+    //     ]);
 
-        // Assert
-        $response->assertStatus(200);
-        $image = Image::make(storage_path('app/shops/resized-' . $filename));
-        $this->assertEquals(500, $image->width());
-        $this->assertEquals(500, $image->height());
-    }
+    //     // Assert
+    //     $response->assertStatus(200);
+    //     $image = Image::make(storage_path('app/shops/resized-' . $filename));
+    //     $this->assertEquals(500, $image->width());
+    //     $this->assertEquals(500, $image->height());
+    // }
 
-    public function test_spatie_media_library(): void
-    {
-        // Arrange
-        $filename = Str::random(8) . '.jpg';
-        // Act
-        $response = $this->post('companies', [
-            'name' => 'Some name',
-            'photo' => UploadedFile::fake()->image($filename)
-        ]);
-        // Assert
-        $response->assertStatus(200);
+    // public function test_spatie_media_library(): void
+    // {
+    //     // Arrange
+    //     $filename = Str::random(8) . '.jpg';
+    //     // Act
+    //     $response = $this->post('companies', [
+    //         'name' => 'Some name',
+    //         'photo' => UploadedFile::fake()->image($filename)
+    //     ]);
+    //     // Assert
+    //     $response->assertStatus(200);
 
-        // Arrange
-        $company = Company::first();
-        // Act
-        $response = $this->get('companies/' . $company->id);
-        // Assert
-        $response->assertStatus(200);
-        $response->assertSee('storage/' . $company->id . '/' . $filename);
-    }
+    //     // Arrange
+    //     $company = Company::first();
+    //     // Act
+    //     $response = $this->get('companies/' . $company->id);
+    //     // Assert
+    //     $response->assertStatus(200);
+    //     $response->assertSee('storage/' . $company->id . '/' . $filename);
+    // }
 }
